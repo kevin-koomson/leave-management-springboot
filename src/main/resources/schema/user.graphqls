@@ -1,0 +1,39 @@
+
+
+type LeaveUser {
+    id: ID!
+    firstName: String
+    lastName: String
+    fullName: String
+    email: String
+    profileImage: String
+    deleted: Boolean
+    bookedLeaves: [BookedLeave]
+    accruedLeave: AccruedLeave
+    organization: LeaveOrganization
+    employeeInfo: [LeaveEmployeeInfo]
+}
+
+type LeavePosition {
+    id: ID!
+    position_name: String
+    description: String
+}
+
+type LeaveEmployeeInfo {
+    id: ID!
+    active: Boolean
+    effective_date: String
+    end_date: String
+    user: LeaveUser
+    organization: LeaveOrganization
+    position: LeavePosition
+    manager: LeaveUser
+}
+
+type LeaveOrganization {
+    id: ID!
+    name: String
+    country: String
+    approverSet: [LeaveUser]
+}

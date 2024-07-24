@@ -1,0 +1,13 @@
+type Mutation {
+#    Access Levels
+    createAccessLevel(input: AccessLevelDTO): AccessLevel
+    updateAccessLevel(input: AccessLevelDTO): AccessLevel
+#    Users
+    upsertUser(jsonPayload: String!) : LeaveUser!
+#    Position
+    upsertPosition(jsonPayload: String!) : LeavePosition!
+#    Organization
+    upsertOrganization (jsonPayload: String!): LeaveOrganization!
+#    EmployeeInfo
+    upsertEmployeeInfo(jsonPayload: String!): LeaveEmployeeInfo!
+}

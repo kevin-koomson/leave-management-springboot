@@ -1,0 +1,15 @@
+{
+  "data": {
+    "id": 15,
+    "position_name": "Assistant Trainer",
+    "description": "random description",
+    "deleted": false,
+    "delete_reason": null,
+    "delete_comment": null,
+    "deleted_at": null,
+    "created_at": "2021-06-11T16:00:00.000Z",
+    "updated_at": "2024-07-24T07:44:00.135Z",
+    "seniority_level_id": 249
+  },
+  "action": "update"
+}

@@ -1,0 +1,5 @@
+type Query {
+    getAccessLevelById(id: String!): AccessLevel
+    listAccessLevels: [AccessLevel]
+    listUsers:[LeaveUser]
+}

@@ -1,0 +1,18 @@
+type AccessLevel {
+    id: String
+    name: String
+    description: String
+    permissions: String
+    deleted: Boolean
+    createdAt: String
+    updatedAt: String
+    createdBy: LeaveUser
+    updatedBy: LeaveUser
+    users: [LeaveUser]
+}
+
+input AccessLevelDTO {
+    id: String
+    name: String
+    description: String
+}
