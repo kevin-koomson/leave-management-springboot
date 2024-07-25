@@ -1,6 +1,7 @@
 package com.kevo.LeavesRemaster.modules.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfoRepository;
 import com.kevo.LeavesRemaster.utilites.JsonProcessingService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,11 +31,16 @@ class UserServiceTest {
     @Mock
     private ObjectMapper objectMapper;
     @Mock
-    private Resource resource;
+    private EmployeeInfoRepository infoRepository;
 
     @BeforeEach
     void setUp() {
-        userService = new UserService(userRepository, jsonProcessingService, objectMapper);
+        userService = new UserService(
+                userRepository,
+                jsonProcessingService,
+                objectMapper,
+                infoRepository
+        );
         jsonProcessingService = new JsonProcessingService( objectMapper);
         user = User.builder()
                 .id(UUID.randomUUID())

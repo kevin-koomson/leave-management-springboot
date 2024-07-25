@@ -15,11 +15,14 @@ import com.kevo.LeavesRemaster.modules.user.User;
 import com.kevo.LeavesRemaster.modules.user.UserRepository;
 import com.kevo.LeavesRemaster.modules.user.UserService;
 import com.kevo.LeavesRemaster.utilites.JsonProcessingService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +36,7 @@ public class EmployeeInfoService {
     private final UserRepository userRepository;
 
     public Organization saveOrganization (ClientDTO dto) {
-        Organization organization = objectMapper.convertValue(dto, Organization.class);
-        organization.setCountry(dto.getAddress().getCountry());
-        return organizationRepository.save(organization);
+        return organizationRepository.save(dto.createOrganizationFromDto(dto));
     }
     public Position savePosition (PositionDTO dto) {
         return positionRepository.save(objectMapper.convertValue(dto, Position.class));
@@ -51,33 +52,37 @@ public class EmployeeInfoService {
         return objectMapper.convertValue(organization, LeaveOrganization.class);
     }
 
+    @Transactional
     public EmployeeInfo upsertEmployeeInfo(String jsonPayload) throws JsonProcessingException {
         // receive and process data
         EmployeeInfoDTO dto = jsonProcessingService.processJsonFile(jsonPayload, EmployeeInfoDTO.class);
         // affirm organization and position
-        Organization organization = organizationRepository.findById(dto.getOrganization_id()).orElse(null);
-
-
+        Organization organization = organizationRepository.findById(dto.getOrganization_id())
+                .orElse(saveOrganization(dto.convertToClientDto()));
+        Position position = positionRepository.findById(dto.getPosition_id())
+                .orElse(savePosition(dto.getPosition()));
+        // get info object
         EmployeeInfo info = objectMapper.readValue(objectMapper.writeValueAsString(dto), EmployeeInfo.class);
+
         info.setOrganization(organization);
-        EmployeeInfo savedInfo = infoRepository.save(info);
+        info.setPosition(position);
+
         // check if user exists
         User user = userService.getUserByUserId(dto.getUser_id());
-        if(!Objects.isNull(user)) { // if user exists
-            // update user's info
-            user.getEmployeeInfos().add(info);
-            userRepository.save(user);
-        } else { // user does not exist
+
+        if(Objects.isNull(user)) {
+            // user does not exist
             // create user from json string and dto
-            User newUser = createUserFromInfoDto(dto);
-            newUser.setOrganization(organization);
-            newUser.getEmployeeInfos().add(info);
-            userRepository.save(newUser);
+            user = createUserFromInfoDto(dto);
+            user.setOrganization(organization);
+            user = userRepository.save(user);
+            user = userService.getUserByUserId(user.getUserId());
         }
-        return savedInfo;
+        info.setUser(user);
+        return infoRepository.save(info);
     }
 
-    public User createUserFromInfoDto(EmployeeInfoDTO dto) throws JsonProcessingException {
+    public User createUserFromInfoDto(EmployeeInfoDTO dto) {
         return User.builder()
                 .userId(dto.getUser_id())
                 .firstName(dto.getEmployee_bio().getFirst_name())
@@ -85,7 +90,7 @@ public class EmployeeInfoService {
                 .fullName(dto.getEmployee_bio().getFull_name())
                 .email(
                         Objects.requireNonNull(
-                                Arrays.stream(dto.getEmployee_contacts().getContact())
+                                Arrays.stream(dto.getEmployee_bio().getEmployee_contacts())
                                         .findFirst()
                                         .orElse(null)
                                 )

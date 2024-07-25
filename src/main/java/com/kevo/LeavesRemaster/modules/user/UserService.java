@@ -4,10 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kevo.LeavesRemaster.codegen.types.LeaveUser;
 
+import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfo;
+import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfoRepository;
 import com.kevo.LeavesRemaster.utilites.JsonProcessingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,12 +20,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final JsonProcessingService jsonProcessingService;
     private final ObjectMapper objectMapper;
+    private final EmployeeInfoRepository infoRepository;
 
     public User getUserByUuid(UUID id) {
         return userRepository.findById(id).orElse(null);
     }
     public User getUserByUserId(Long userId) {
-        return userRepository.findUserByUserId(userId);
+        return userRepository.findByUserId(userId);
     }
 
     public LeaveUser upsertUser(String json) throws JsonProcessingException {
@@ -58,5 +62,9 @@ public class UserService {
     public LeaveUser transformUserToLeaveUser(User user) throws JsonProcessingException {
         String userJson = objectMapper.writeValueAsString(user);
         return objectMapper.readValue(userJson, LeaveUser.class);
+    }
+
+    public List<EmployeeInfo> listEmployeeInfosByUserId(Long user_id) {
+        return infoRepository.findAllByUser_UserId(user_id);
     }
 }

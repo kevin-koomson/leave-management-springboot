@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Persistent;
 
 import java.time.LocalDateTime;
 
@@ -26,9 +27,18 @@ public class EmployeeInfo {
     @OneToOne
     private Organization organization;
     @ManyToOne
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "userId",
+            foreignKey = @ForeignKey(name = "fk_employeeinfo_user", value = ConstraintMode.NO_CONSTRAINT)
+    )
     private User user;
     @OneToOne
     private Position position;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(
+            name = "manager_id",
+            referencedColumnName = "userId",
+            foreignKey = @ForeignKey(foreignKeyDefinition = "fk_employeeinfo_manager", value = ConstraintMode.NO_CONSTRAINT))
     private User manager;
 }

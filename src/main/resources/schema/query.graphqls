@@ -1,5 +1,9 @@
 type Query {
+#    Access Levels
     getAccessLevelById(id: String!): AccessLevel
     listAccessLevels: [AccessLevel]
+#    User
     listUsers:[LeaveUser]
+#    Employee info
+    listEmployeeInfoByUserId(user_id: ID!): [LeaveEmployeeInfo]!
 }

@@ -36,8 +36,8 @@ public class User {
     private AccessLevel accessLevel;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Organization organization;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private Set<EmployeeInfo> employeeInfos;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<EmployeeInfo> employeeInfos = Set.of();
     @OneToMany
     private Set<BookedLeave> bookedLeaves;
     @OneToOne

@@ -1,5 +1,6 @@
 package com.kevo.LeavesRemaster.modules.employeeInfo;
 
+import com.kevo.LeavesRemaster.modules.organization.ClientDTO;
 import com.kevo.LeavesRemaster.modules.position.PositionDTO;
 import lombok.Builder;
 import lombok.Data;
@@ -20,11 +21,16 @@ public class EmployeeInfoDTO {
     private EmployeeOrganization employee_organization;
     private PositionDTO position;
     private EmployeeBio employee_bio;
-    private UserContact employee_contacts;
     @Data
     public static class EmployeeOrganization {
         private Long id;
         private String name;
+    }
+    public ClientDTO convertToClientDto(){
+        return ClientDTO.builder()
+                .id(employee_organization.id)
+                .client_name(employee_organization.getName())
+                .build();
     }
     @Data
     public static class EmployeeBio {
@@ -33,10 +39,7 @@ public class EmployeeInfoDTO {
         private String full_name;
         private String profile_image;
         private Boolean deleted;
-    }
-    @Data
-    public static class UserContact {
-        private Contact[] contact;
+        private Contact[] employee_contacts;
     }
     @Data
     public static class Contact {
