@@ -10,6 +10,8 @@ import java.util.Objects;
 public class ClientDTO {
     private Long id;
     private String client_name;
+    private Boolean archive;
+    private Boolean isOrganization;
     private ClientAddress address;
 
     @Data

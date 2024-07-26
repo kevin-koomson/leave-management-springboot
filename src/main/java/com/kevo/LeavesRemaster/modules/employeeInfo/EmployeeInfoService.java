@@ -48,6 +48,7 @@ public class EmployeeInfoService {
     }
     public LeaveOrganization upsertOrganization(String jsonPayload) throws JsonProcessingException {
         ClientDTO dto = jsonProcessingService.processJsonFile(jsonPayload, ClientDTO.class);
+        if(!dto.getIsOrganization() && dto.getArchive()) return null;
         Organization organization = saveOrganization(dto);
         return objectMapper.convertValue(organization, LeaveOrganization.class);
     }

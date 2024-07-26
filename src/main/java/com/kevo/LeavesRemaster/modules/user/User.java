@@ -2,6 +2,7 @@ package com.kevo.LeavesRemaster.modules.user;
 
 import com.kevo.LeavesRemaster.entity.AccruedLeave;
 import com.kevo.LeavesRemaster.entity.BookedLeave;
+import com.kevo.LeavesRemaster.entity.Role;
 import com.kevo.LeavesRemaster.modules.accessLevel.AccessLevel;
 import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfo;
 import com.kevo.LeavesRemaster.modules.organization.Organization;
@@ -31,6 +32,7 @@ public class User {
     private String profileImage;
     private Boolean isEmployee = true;
     private Boolean deleted;
+    private Role role = Role.EMPLOYEE;
     @ManyToOne
     @JoinColumn(name = "access_level_id", referencedColumnName = "id")
     private AccessLevel accessLevel;
