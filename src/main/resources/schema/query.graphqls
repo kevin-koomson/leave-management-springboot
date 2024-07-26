@@ -10,4 +10,7 @@ type Query {
     listLeaveOrganizations: [LeaveOrganization]!
 #    Position
     listLeavePositions: [LeavePosition]!
+#    LeaveType
+    listLeaveTypes: [LeaveType]!
+    getLeaveTypeById(id: ID!): LeaveType!
 }

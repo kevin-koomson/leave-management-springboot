@@ -12,4 +12,8 @@ type Mutation {
     upsertOrganization (jsonPayload: String!): LeaveOrganization!
 #    EmployeeInfo
     upsertEmployeeInfo(jsonPayload: String!): LeaveEmployeeInfo!
+#    LeaveType
+    createLeaveType(data: LeaveTypeInput!): LeaveType!
+    updateLeaveType(data: LeaveTypeInput!): LeaveType!
+    archiveLeaveType(id: ID!): LeaveType!
 }

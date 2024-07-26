@@ -1,0 +1,10 @@
+type LeaveType {
+    id: ID!
+    name: String!
+    description: String
+}
+input LeaveTypeInput {
+    id: ID
+    name: String
+    description: String
+}

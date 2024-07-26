@@ -1,5 +1,6 @@
 package com.kevo.LeavesRemaster.entity;
 
+import com.kevo.LeavesRemaster.modules.leaveType.LeaveType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,6 @@ public class LeavePolicy {
     private LocalDateTime carryOverExpiry;
     private Boolean canNegate = true;
     private Boolean archived = false;
-    @OneToOne
+    @ManyToOne
     private LeaveType leaveType;
 }
