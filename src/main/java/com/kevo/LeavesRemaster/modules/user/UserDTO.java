@@ -13,28 +13,18 @@ public class UserDTO {
 
     @Data
     @Builder
-    public static class BioData {
-        private String first_name;
-        private String last_name;
-        private String full_name;
-        private String profile_image;
-        private Long user_id;
-        private Boolean deleted;
-    }
-    @Data
-    @Builder
     public static class Contact {
         private Long id;
         private String work_email;
     }
     public User createUserFromDto(){
         return User.builder()
-                .userId(bioData.user_id)
-                .firstName(bioData.first_name)
-                .lastName(bioData.last_name)
-                .fullName(bioData.full_name)
-                .profileImage(bioData.profile_image)
-                .deleted(bioData.deleted)
+                .userId(bioData.getUser_id())
+                .firstName(bioData.getFirst_name())
+                .lastName(bioData.getLast_name())
+                .fullName(bioData.getFull_name())
+                .profileImage(bioData.getProfile_image())
+                .deleted(bioData.getDeleted())
                 .email(contact.work_email)
                 .build();
     }

@@ -4,6 +4,8 @@ type Mutation {
     updateAccessLevel(input: AccessLevelDTO): AccessLevel
 #    Users
     upsertUser(jsonPayload: String!) : LeaveUser!
+    upsertUserBio(jsonPayload: String!): LeaveUser!
+    upsertUserContact(jsonPayload: String!): LeaveUser!
 #    Position
     upsertPosition(jsonPayload: String!) : LeavePosition!
 #    Organization

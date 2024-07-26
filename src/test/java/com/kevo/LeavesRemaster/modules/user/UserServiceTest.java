@@ -2,6 +2,8 @@ package com.kevo.LeavesRemaster.modules.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfoRepository;
+import com.kevo.LeavesRemaster.modules.organization.OrganizationRepository;
+import com.kevo.LeavesRemaster.modules.position.PositionRepository;
 import com.kevo.LeavesRemaster.utilites.JsonProcessingService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +34,10 @@ class UserServiceTest {
     private ObjectMapper objectMapper;
     @Mock
     private EmployeeInfoRepository infoRepository;
+    @Mock
+    private final OrganizationRepository organizationRepository;
+    @Mock
+    private final PositionRepository positionRepository;
 
     @BeforeEach
     void setUp() {
@@ -39,7 +45,9 @@ class UserServiceTest {
                 userRepository,
                 jsonProcessingService,
                 objectMapper,
-                infoRepository
+                infoRepository,
+                organizationRepository,
+                positionRepository
         );
         jsonProcessingService = new JsonProcessingService( objectMapper);
         user = User.builder()

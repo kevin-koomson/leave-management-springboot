@@ -6,6 +6,10 @@ import com.kevo.LeavesRemaster.codegen.types.LeaveUser;
 
 import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfo;
 import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfoRepository;
+import com.kevo.LeavesRemaster.modules.organization.Organization;
+import com.kevo.LeavesRemaster.modules.organization.OrganizationRepository;
+import com.kevo.LeavesRemaster.modules.position.Position;
+import com.kevo.LeavesRemaster.modules.position.PositionRepository;
 import com.kevo.LeavesRemaster.utilites.JsonProcessingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +25,8 @@ public class UserService {
     private final JsonProcessingService jsonProcessingService;
     private final ObjectMapper objectMapper;
     private final EmployeeInfoRepository infoRepository;
+    private final OrganizationRepository organizationRepository;
+    private final PositionRepository positionRepository;
 
     public User getUserByUuid(UUID id) {
         return userRepository.findById(id).orElse(null);
@@ -66,5 +72,40 @@ public class UserService {
 
     public List<EmployeeInfo> listEmployeeInfosByUserId(Long user_id) {
         return infoRepository.findAllByUser_UserId(user_id);
+    }
+
+    public List<User> listUsers() {
+        return userRepository.findAllByDeleted(false);
+    }
+
+    public List<Organization> listOrganizations() {
+        return organizationRepository.findAll();
+    }
+
+    public List<Position> listPositions() {return positionRepository.findAll();}
+
+    public User upsertUserBio(String jsonPayload) throws JsonProcessingException {
+        // get bio data dto from string
+        BioData bioData = jsonProcessingService.processJsonFile(jsonPayload, BioData.class);
+        // get user from repo with user id
+        User user = userRepository.findByUserId(bioData.getUser_id());
+        // if user doesn't exist, create new user from bio data
+        user = Objects.isNull(user) ?
+                bioData.createUserFromBio() : bioData.updateUserWithBio(user);
+        return userRepository.save(user);
+    }
+
+    public User upsertUserContact(String payload) throws JsonProcessingException {
+
+        Long userId = objectMapper.readTree(payload).get("data").get("user_id").asLong();
+        String email = objectMapper.readTree(payload).get("data").get("work_email").asText();
+
+        User user = getUserByUserId(userId);
+        if(Objects.isNull(user)){
+            return userRepository.save(
+                    User.builder().userId(userId).email(email).build());
+        }
+        user.setEmail(email);
+        return userRepository.save(user);
     }
 }
