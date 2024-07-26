@@ -35,5 +35,5 @@ build/
 ### env ###
 .env
 logs
-src/main/resources/testFiles
 test.txt
+/src/main/resources/testFiles/
