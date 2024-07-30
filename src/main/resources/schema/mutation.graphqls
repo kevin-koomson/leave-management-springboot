@@ -16,4 +16,13 @@ type Mutation {
     createLeaveType(data: LeaveTypeInput!): LeaveType!
     updateLeaveType(data: LeaveTypeInput!): LeaveType!
     archiveLeaveType(id: ID!): LeaveType!
+#    LeavePolicy
+    createLeavePolicy(data: LeavePolicyInput): LeavePolicy!
+    updateLeavePolicy(data: UpdateLeavePolicyInput): LeavePolicy!
+    deleteLeavePolicy(id: ID!): LeavePolicy!
+#    Holiday
+    createHoliday(data: CreateHolidayInput!): LeaveHoliday!
+    updateHoliday(data: UpdateLeavePolicyInput): LeaveHoliday
+    deleteHoliday(id: ID!): LeaveHoliday!
+    saveHolidays(data:[HolidayImportInput]!): [LeaveHoliday]!
 }

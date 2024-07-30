@@ -26,4 +26,5 @@ public class LeaveType {
     private String name;
     private String description;
     private Boolean deleted = false;
+    private Boolean annualDefault = false;
 }

@@ -2,9 +2,11 @@ type LeaveType {
     id: ID!
     name: String!
     description: String
+    annualDefault: Boolean
 }
 input LeaveTypeInput {
     id: ID
     name: String
     description: String
+    annualDefault: Boolean
 }

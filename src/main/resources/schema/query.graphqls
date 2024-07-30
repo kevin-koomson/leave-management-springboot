@@ -1,16 +1,24 @@
 type Query {
 #    Access Levels
     getAccessLevelById(id: String!): AccessLevel
-    listAccessLevels: [AccessLevel]
+    listAccessLevels(search:String = ""): [AccessLevel]
 #    User
     listLeaveUsers:[LeaveUser]
 #    Employee info
     listEmployeeInfoByUserId(user_id: ID!): [LeaveEmployeeInfo]!
 #    Organization
     listLeaveOrganizations: [LeaveOrganization]!
-#    Position
+#    LeaveType
     listLeavePositions: [LeavePosition]!
 #    LeaveType
     listLeaveTypes: [LeaveType]!
     getLeaveTypeById(id: ID!): LeaveType!
+#    Leave Policy
+    getLeavePolicyById(id: ID!): LeavePolicy!
+    listLeavePolicies(search:String = ""): [LeavePolicy]!
+#    Holiday
+    getHolidayById(id:ID!): LeaveHoliday!
+    listHolidays(search:String = ""): [LeaveHoliday]!
+    listHolidaysByCountry(country:String!): [LeaveHoliday]!
+    generateHolidays(country: String!, year: String!): [HolidayImport]!
 }
