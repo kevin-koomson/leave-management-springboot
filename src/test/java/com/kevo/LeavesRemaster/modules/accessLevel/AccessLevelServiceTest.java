@@ -1,6 +1,8 @@
 package com.kevo.LeavesRemaster.modules.accessLevel;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kevo.LeavesRemaster.modules.user.User;
+import com.kevo.LeavesRemaster.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,10 +28,12 @@ class AccessLevelServiceTest {
     private AccessLevelService accessLevelService;
     private AccessLevel accessLevel;
     private AccessLevelDTO accessLevelDTO;
+    private ObjectMapper objectMapper;
+    private UserService userService;
 
     @BeforeEach
     void setUp() {
-        accessLevelService = new AccessLevelService(accessLevelRepository);
+        accessLevelService = new AccessLevelService(accessLevelRepository, objectMapper, userService);
         accessLevelDTO = AccessLevelDTO.builder()
                 .accessLevelName("Test Access Level")
                 .createdBy(UUID.randomUUID())

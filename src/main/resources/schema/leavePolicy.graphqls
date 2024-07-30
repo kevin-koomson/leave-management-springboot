@@ -1,0 +1,50 @@
+type LeavePolicy {
+    id: ID!
+    name: String
+    description: String
+    startDelay: Float
+    maxAccrual: Float
+    carryOver: Float
+    delayRange: DayRange
+    accrualRate: DayRange
+    carryOverExpiry: String
+    canNegate: Boolean
+    leaveType: LeaveType
+    positions: [LeavePosition]!
+}
+
+input LeavePolicyInput {
+    name: String!
+    description: String
+    startDelay: Float
+    maxAccrual: Float!
+    carryOver: Float
+    delayRange: DayRange
+    accrualRate: DayRange
+    carryOverExpiry: String!
+    canNegate: Boolean
+    leaveTypeId: ID!
+    positions: [ID]!
+}
+
+input UpdateLeavePolicyInput {
+    id: ID!
+    name: String!
+    description: String
+    startDelay: Float
+    maxAccrual: Float!
+    carryOver: Float
+    delayRange: DayRange
+    accrualRate: DayRange
+    carryOverExpiry: String
+    canNegate: Boolean
+    leaveTypeId: ID!
+    positions: [ID]!
+}
+
+enum DayRange {
+    DAY,
+    WEEK,
+    MONTH,
+    YEAR
+}

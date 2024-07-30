@@ -1,5 +1,6 @@
 package com.kevo.LeavesRemaster.entity;
 
+import com.kevo.LeavesRemaster.modules.leavePolicy.LeavePolicy;
 import com.kevo.LeavesRemaster.modules.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

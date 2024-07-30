@@ -1,4 +1,4 @@
-package com.kevo.LeavesRemaster.entity;
+package com.kevo.LeavesRemaster.modules.holiday;
 
 import com.kevo.LeavesRemaster.modules.organization.Organization;
 import jakarta.persistence.*;
@@ -23,10 +23,9 @@ public class Holiday {
     @Column(unique = true)
     private String name;
     private String description;
+    private String country;
     private LocalDateTime startDay;
     private LocalDateTime endDay;
-    private Boolean archived;
-    @OneToOne
-    private Organization organization;
+    private Boolean archived = false;
 
 }

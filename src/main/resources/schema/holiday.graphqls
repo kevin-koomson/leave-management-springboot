@@ -1,0 +1,36 @@
+type LeaveHoliday {
+    id: ID
+    name: String
+    description: String
+    country: String
+    startDay: String
+    endDay: String
+    archived: Boolean
+}
+
+input CreateHolidayInput {
+    name: String!
+    description: String
+    country: String!
+    startDay: String!
+    endDay: String
+}
+
+input UpdateHolidayInput {
+    id: ID!
+    name: String!
+    description: String
+    country: String!
+    startDay: String!
+    endDay: String
+}
+type HolidayImport {
+    name: String
+    country: String
+    date: String
+}
+input HolidayImportInput {
+    name: String!
+    country: String!
+    date: String!
+}
