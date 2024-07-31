@@ -1,6 +1,6 @@
 package com.kevo.LeavesRemaster.modules.leavePolicy;
 
-import com.kevo.LeavesRemaster.entity.DayRange;
+import com.kevo.LeavesRemaster.enums.DayRange;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 

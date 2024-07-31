@@ -1,4 +1,4 @@
-package com.kevo.LeavesRemaster.entity;
+package com.kevo.LeavesRemaster.modules.accruedLeave;
 
 import com.kevo.LeavesRemaster.modules.leavePolicy.LeavePolicy;
 import com.kevo.LeavesRemaster.modules.user.User;

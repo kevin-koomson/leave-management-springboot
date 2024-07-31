@@ -21,4 +21,9 @@ type Query {
     listHolidays(search:String = ""): [LeaveHoliday]!
     listHolidaysByCountry(country:String!): [LeaveHoliday]!
     generateHolidays(country: String!, year: String!): [HolidayImport]!
+#    Booked leaves
+    listUpcomingLeavesByUserId(id: ID!) : [BookedLeave]!
+    listLeaveHistoryByUserId(id: ID!) : [BookedLeave]!
+    listLeavesByManagerId(id: ID!) : [BookedLeave]!
+    listLeavesByOrganizationId(id: ID!) : [BookedLeave]!
 }

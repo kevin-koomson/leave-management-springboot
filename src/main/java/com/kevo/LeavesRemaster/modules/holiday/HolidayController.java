@@ -20,7 +20,7 @@ public class HolidayController {
         return holidayAPI.getHolidaysFromAPI(year, country);
     }
     @DgsMutation
-    List<Holiday> saveHolidays(@InputArgument List<HolidayDTO> data) throws IOException, InterruptedException {
+    List<Holiday> saveHolidays(@InputArgument List<HolidayDTO> data) {
         return holidayService.saveHolidays(data);
     }
 }

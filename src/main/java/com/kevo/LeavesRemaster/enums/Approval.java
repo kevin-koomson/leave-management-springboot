@@ -1,4 +1,4 @@
-package com.kevo.LeavesRemaster.entity;
+package com.kevo.LeavesRemaster.enums;
 
 public enum Approval {
     PENDING,

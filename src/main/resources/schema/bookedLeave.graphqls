@@ -1,4 +1,63 @@
 type BookedLeave {
     id: ID!
+    hrApproval: LeaveApproval
+    managerApproval: LeaveApproval
+    year: Int
+    daysOff: Float
+    carryOverUsed: Float
+    createdAt: String
+    updatedAt: String
+    leaveDays: LeaveDay
+    user: LeaveUser
+    approvedByHr: LeaveUser
+    comments: LeaveComment
+    organization: LeaveOrganization
+    documents: LeaveDocument
+}
 
+enum LeaveApproval {
+    PENDING,
+    APPROVED,
+    DISAPPROVED
+}
+
+type LeaveDay {
+    date: String
+    duration: Float
+}
+
+type LeaveComment {
+    id: ID!
+    message: String
+    timestamp: String
+    createdBy: LeaveUser
+}
+
+type LeaveDocument {
+    id: ID
+    fileName: String
+    url: String
+}
+
+input BookLeaveInput {
+    hrApproval: LeaveApproval
+    managerApproval: LeaveApproval
+    carryOverUsed: Float
+    leaveTypeId: ID!
+    leaveDays: [LeaveDayInput]!
+    userId: ID!
+    comment: String
+}
+
+input UpdateLeaveInput {
+    id: ID!
+    leaveTypeId: ID!
+    leaveDays: [LeaveDayInput]!
+    updatedBy: ID!
+    message: String
+}
+
+input LeaveDayInput {
+    date: String
+    duration: Float
 }

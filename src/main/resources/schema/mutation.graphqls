@@ -25,4 +25,12 @@ type Mutation {
     updateHoliday(data: UpdateLeavePolicyInput): LeaveHoliday
     deleteHoliday(id: ID!): LeaveHoliday!
     saveHolidays(data:[HolidayImportInput]!): [LeaveHoliday]!
+#    Booked Leave
+    bookLeave(data: BookLeaveInput!): BookedLeave!
+    updateLeave(data: UpdateLeaveInput!): BookedLeave!
+    archiveLeaveById(id: ID!): BookedLeave!
+    addManagerApproval(id: ID!, approval: LeaveApproval!): BookedLeave!
+    addHrApproval(id: ID!, approval: LeaveApproval!): BookedLeave!
+    addLeaveComment(id: ID!, message: String): BookedLeave!
+
 }

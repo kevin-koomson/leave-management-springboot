@@ -1,10 +1,9 @@
 package com.kevo.LeavesRemaster.modules.leavePolicy;
 
-import com.kevo.LeavesRemaster.entity.DayRange;
+import com.kevo.LeavesRemaster.enums.DayRange;
 import com.kevo.LeavesRemaster.modules.leaveType.LeaveType;
 import com.kevo.LeavesRemaster.modules.position.Position;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.kevo.LeavesRemaster.entity;
+package com.kevo.LeavesRemaster.modules.accruedLeave;
 
 import com.kevo.LeavesRemaster.modules.user.User;
 import jakarta.persistence.*;
@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -17,15 +18,19 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Table
-public class Comment {
+public class HrComment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String message;
+    private String comment;
     @CreationTimestamp
-    private LocalDateTime timestamp;
-    @ManyToOne
-    private BookedLeave bookedLeave;
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
     @OneToOne
     private User createdBy;
+    @OneToOne
+    private User concernedUser;
+    @ManyToOne
+    private AccruedLeave userAccrual;
 }

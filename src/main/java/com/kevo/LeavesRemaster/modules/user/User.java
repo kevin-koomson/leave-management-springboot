@@ -1,8 +1,8 @@
 package com.kevo.LeavesRemaster.modules.user;
 
-import com.kevo.LeavesRemaster.entity.AccruedLeave;
-import com.kevo.LeavesRemaster.entity.BookedLeave;
-import com.kevo.LeavesRemaster.entity.Role;
+import com.kevo.LeavesRemaster.modules.accruedLeave.AccruedLeave;
+import com.kevo.LeavesRemaster.modules.bookedLeave.BookedLeave;
+import com.kevo.LeavesRemaster.enums.Role;
 import com.kevo.LeavesRemaster.modules.accessLevel.AccessLevel;
 import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfo;
 import com.kevo.LeavesRemaster.modules.organization.Organization;

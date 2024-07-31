@@ -1,11 +1,14 @@
-package com.kevo.LeavesRemaster.entity;
+package com.kevo.LeavesRemaster.modules.bookedLeave;
 
+import com.kevo.LeavesRemaster.modules.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -14,12 +17,15 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Table
-public class LeaveDocument {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String fileName;
-    private String url;
+    private String message;
+    @CreationTimestamp
+    private LocalDateTime timestamp;
     @ManyToOne
     private BookedLeave bookedLeave;
+    @OneToOne
+    private User createdBy;
 }

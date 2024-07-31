@@ -20,7 +20,7 @@ public class LeavePolicyController {
         return policyService.getLeavePolicyById(id);
     }
     @DgsQuery
-    public List<LeavePolicy> listLeavePolicies() {
+    public List<LeavePolicy> listLeavePolicies(@InputArgument String search) {
         return policyService.listLeavePolicies();
     }
     @DgsMutation

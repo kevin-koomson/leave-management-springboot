@@ -1,4 +1,4 @@
-package com.kevo.LeavesRemaster.entity;
+package com.kevo.LeavesRemaster.modules.bookedLeave;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
