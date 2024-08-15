@@ -1,5 +1,6 @@
 package com.kevo.LeavesRemaster.modules.accessLevel;
 
+import com.kevo.LeavesRemaster.enums.Permissions;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -7,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -17,7 +19,7 @@ public class AccessLevelDTO {
     private String accessLevelName;
     private String description;
     @NotNull
-    private String permissions;
+    private List<Permissions> permissions;
     @NotNull
     private UUID createdBy;
     private UUID[] users;

@@ -50,4 +50,7 @@ public class AccessLevelService {
             }
         }
     }
+    public List<String> getUserPermissionsByUserId(Long userId) {
+        return null;
+    }
 }

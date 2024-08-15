@@ -1,4 +1,6 @@
 type Mutation {
+#    db setup
+    setupDb:String
 #    Access Levels
     createAccessLevel(input: AccessLevelDTO): AccessLevel
     updateAccessLevel(input: AccessLevelDTO): AccessLevel

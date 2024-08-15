@@ -1,13 +1,9 @@
 package com.kevo.LeavesRemaster.modules.leaveType;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +15,7 @@ public class LeaveTypeService {
     }
 
     public LeaveType getLeaveTypeById(UUID id) {
-        return typeRepository.findById(id).orElseThrow();
+        return typeRepository.findById(id).orElseThrow(()->new NoSuchElementException("Leave type does not exist"));
     }
 
     public LeaveType saveLeaveType(LeaveType data) {
@@ -37,5 +33,8 @@ public class LeaveTypeService {
         LeaveType type = typeRepository.findById(id).orElseThrow();
         type.setDeleted(true);
         return typeRepository.save(type);
+    }
+    public LeaveType getAnnualDefault() {
+        return typeRepository.findByAnnualDefaultIsTrue();
     }
 }

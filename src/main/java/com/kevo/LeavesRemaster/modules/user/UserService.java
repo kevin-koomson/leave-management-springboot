@@ -32,7 +32,7 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
     public User getUserByUserId(Long userId) {
-        return userRepository.findByUserId(userId);
+        return userRepository.findByUserIdAndDeletedIsFalse(userId);
     }
 
     public LeaveUser upsertUser(String json) throws JsonProcessingException {
@@ -88,7 +88,7 @@ public class UserService {
         // get bio data dto from string
         BioData bioData = jsonProcessingService.processJsonFile(jsonPayload, BioData.class);
         // get user from repo with user id
-        User user = userRepository.findByUserId(bioData.getUser_id());
+        User user = userRepository.findByUserIdAndDeletedIsFalse(bioData.getUser_id());
         // if user doesn't exist, create new user from bio data
         user = Objects.isNull(user) ?
                 bioData.createUserFromBio() : bioData.updateUserWithBio(user);

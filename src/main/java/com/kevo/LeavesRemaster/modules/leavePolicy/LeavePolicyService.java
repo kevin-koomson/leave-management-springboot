@@ -1,17 +1,12 @@
 package com.kevo.LeavesRemaster.modules.leavePolicy;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kevo.LeavesRemaster.modules.leaveType.LeaveTypeService;
 import com.kevo.LeavesRemaster.modules.position.Position;
 import com.kevo.LeavesRemaster.modules.position.PositionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -39,4 +34,9 @@ public class LeavePolicyService {
     public Set<Position> parsePositionsFromInput(List<Long> input) {
         return new HashSet<>(positionRepository.findAllByIdIn(input));
     }
+
+    public Position findPositionByPositionId(Long id) {
+        return positionRepository.findById(id).orElseThrow(()->new NoSuchElementException("Position does not exist"));
+    }
+//    public LeavePolicy getPolicyByPosition()
 }

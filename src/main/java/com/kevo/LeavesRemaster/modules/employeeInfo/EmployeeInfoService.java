@@ -1,6 +1,5 @@
 package com.kevo.LeavesRemaster.modules.employeeInfo;
 
-import ch.qos.logback.core.net.server.Client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kevo.LeavesRemaster.codegen.types.LeaveOrganization;
@@ -19,10 +18,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -61,12 +57,14 @@ public class EmployeeInfoService {
         Organization organization = organizationRepository.findById(dto.getOrganization_id())
                 .orElse(saveOrganization(dto.convertToClientDto()));
         Position position = positionRepository.findById(dto.getPosition_id())
-                .orElse(savePosition(dto.getPosition()));
+                .orElseThrow();
+        User manager = userRepository.findByUserIdAndDeletedIsFalse(dto.getManager_id());
         // get info object
         EmployeeInfo info = objectMapper.readValue(objectMapper.writeValueAsString(dto), EmployeeInfo.class);
 
         info.setOrganization(organization);
         info.setPosition(position);
+        info.setManager(manager);
 
         // check if user exists
         User user = userService.getUserByUserId(dto.getUser_id());
@@ -99,5 +97,16 @@ public class EmployeeInfoService {
                 .profileImage(dto.getEmployee_bio().getProfile_image())
                 .deleted(dto.getEmployee_bio().getDeleted())
                 .build();
+    }
+
+    public EmployeeInfo getUserActiveInfo(Long userId) {
+        return infoRepository.findFirstByUser_userIdAndActiveIsTrue(userId);
+    }
+
+    public Organization getOrganizationById(Long id) {
+        return organizationRepository.findById(id).orElseThrow(()->new NoSuchElementException("Organization does not exist"));
+    }
+    public Position getPositionById(Long positionId) {
+        return positionRepository.findById(positionId).orElseThrow();
     }
 }

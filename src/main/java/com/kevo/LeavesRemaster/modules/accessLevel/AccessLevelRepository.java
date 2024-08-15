@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface AccessLevelRepository extends JpaRepository<AccessLevel, UUID> {
 
+    AccessLevel findByName(String employeeAccessLevel);
 }
+

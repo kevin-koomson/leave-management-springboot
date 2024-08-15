@@ -8,12 +8,14 @@ import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfo;
 import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfoService;
 import com.kevo.LeavesRemaster.modules.organization.Organization;
 import com.kevo.LeavesRemaster.modules.position.Position;
+import com.kevo.LeavesRemaster.utilites.Seeders;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import lombok.RequiredArgsConstructor;
 
+import java.io.IOException;
 import java.util.List;
 
 @DgsComponent
@@ -21,6 +23,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final EmployeeInfoService infoService;
+    private final Seeders seeders;
 
     @DgsQuery
     public List<User> listLeaveUsers (){
@@ -62,6 +65,11 @@ public class UserController {
     @DgsMutation
     public User upsertUserContact(@InputArgument String jsonPayload) throws JsonProcessingException {
         return userService.upsertUserContact(jsonPayload);
+    }
+    @DgsMutation
+    public String setupDb() throws IOException {
+        seeders.dbSetup();
+        return "successful setup";
     }
 
 }

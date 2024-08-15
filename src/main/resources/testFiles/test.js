@@ -1,4 +1,4 @@
-const json = require("./contact.json");
+const json = require("./contactTable.json");
 const file = require("node:fs");
 file.writeFileSync("./test.txt", JSON.stringify(json).replaceAll("\"", "\\" + "\""));
 

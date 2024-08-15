@@ -36,4 +36,5 @@ build/
 .env
 logs
 test.txt
-/src/main/resources/testFiles/
+/src/main/resources/testFiles/*
+/src/main/resources/certificate/jwt-public-key.pem

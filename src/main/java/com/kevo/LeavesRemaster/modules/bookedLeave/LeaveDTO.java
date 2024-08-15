@@ -1,31 +1,59 @@
 package com.kevo.LeavesRemaster.modules.bookedLeave;
 
+import com.kevo.LeavesRemaster.codegen.types.LeaveDayInput;
 import com.kevo.LeavesRemaster.enums.Approval;
-import com.kevo.LeavesRemaster.modules.leaveType.LeaveType;
-import com.kevo.LeavesRemaster.modules.organization.Organization;
-import com.kevo.LeavesRemaster.modules.user.User;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Data
 public class LeaveDTO {
     private UUID id;
-    private Approval hrApproval;
-    private Approval managerApproval;
+    private Approval hrApproval = Approval.PENDING;
+    private Approval managerApproval = Approval.PENDING;
+    @Positive(message = "Please enter valid year")
     private Integer year;
-    private Double daysOff;
-    private Double carryOverUsed;
+    @Positive(message = "Please enter valid carry over used")
+    private Double carryOverUsed = 0.0;
+    @NotEmpty(message = "Please provide a valid Leave Type")
     private UUID leaveTypeId;
-    private String createdAt;
-    private String updatedAt;
-    private List<LeaveDay> leaveDays;
-    private UUID userId;
-    private User manager;
-    private User approvedByHr;
+    private List<LeaveDayInput> leaveDays;
+    private Long userId;
+    private Long manager;
+    private Long approvedByHr;
     private String comment;
-    private UUID organizationId;
     private List<LeaveDocument> documents;
+
+    public BookedLeave createBookLeave() {
+        Set<LeaveDay> days  = new HashSet<>(processLeaveDays(leaveDays));
+        return BookedLeave.builder()
+                .hrApproval(hrApproval)
+                .managerApproval(managerApproval)
+                .daysOff(sumLeaveDays())
+                .carryOverUsed(carryOverUsed)
+                .leaveDays(days)
+                .comments(List.of(processComment()))
+                .documents(documents)
+                .build();
+    }
+    private Double sumLeaveDays() {
+        return leaveDays.stream()
+                .mapToDouble(LeaveDayInput::getDuration)
+                .sum();
+    }
+    private List<LeaveDay> processLeaveDays(List<LeaveDayInput> days) {
+        return days.stream().map(
+                day-> LeaveDay.builder()
+                        .date(LocalDateTime.parse(day.getDate()))
+                        .duration(day.getDuration())
+                        .build()).toList();
+    }
+    private Comment processComment() {
+        return Comment.builder()
+                .message(comment)
+                .build();
+    }
 }

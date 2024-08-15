@@ -18,6 +18,7 @@ public class EmployeeEventListener {
 
     @KafkaListener(topics = "employee_job_info")
     void employeeJobInfoListener(String payload) throws JsonProcessingException {
+        System.out.println(payload);
         infoService.upsertEmployeeInfo(payload);
     }
     @KafkaListener(topics = "employee_added")

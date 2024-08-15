@@ -1,5 +1,6 @@
 package com.kevo.LeavesRemaster.modules.accessLevel;
 
+import com.kevo.LeavesRemaster.enums.Permissions;
 import com.kevo.LeavesRemaster.modules.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class AccessLevel {
     @Column(unique = true)
     private String name;
     private String description;
-    private String permissions;
+    private List<Permissions> permissions;
     private Boolean deleted = false;
     @CreationTimestamp
     @Column(updatable = false)
@@ -37,6 +38,6 @@ public class AccessLevel {
     private User createdBy;
     @OneToOne
     private User updatedBy;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<User> users;
 }

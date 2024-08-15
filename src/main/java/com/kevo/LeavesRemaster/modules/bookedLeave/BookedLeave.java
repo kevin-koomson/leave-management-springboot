@@ -15,6 +15,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.*;
 
 @Entity
@@ -27,9 +28,9 @@ public class BookedLeave {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private Approval hrApproval;
-    private Approval managerApproval;
-    private Integer year;
+    private Approval hrApproval = Approval.PENDING;
+    private Approval managerApproval = Approval.PENDING;
+    private Integer year = Year.now().getValue();
     private Double daysOff;
     private Double carryOverUsed;
     @ManyToOne
@@ -49,12 +50,16 @@ public class BookedLeave {
     @ElementCollection
     @CollectionTable
     private Set<LeaveDay> leaveDays;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(
+            name = "organization_id",
+            referencedColumnName = "id"
+    )
     private Organization organization;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<LeaveDocument> documents;
-    @OneToMany(mappedBy = "bookedLeave")
+    @OneToMany(mappedBy = "bookedLeave", cascade = CascadeType.ALL)
     private List<BookedLeaveHistory> histories;
 }

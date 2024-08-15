@@ -24,21 +24,27 @@ public class EmployeeInfo {
     private Boolean active;
     private LocalDateTime effective_date;
     private LocalDateTime end_date;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(
+            name = "organization_id",
+            referencedColumnName = "id"
+    )
     private Organization organization;
     @ManyToOne
     @JoinColumn(
             name = "user_id",
-            referencedColumnName = "userId",
-            foreignKey = @ForeignKey(name = "fk_employeeinfo_user", value = ConstraintMode.NO_CONSTRAINT)
+            referencedColumnName = "userId"
     )
     private User user;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(
+            name = "position_id",
+            referencedColumnName = "id"
+    )
     private Position position;
     @ManyToOne
     @JoinColumn(
             name = "manager_id",
-            referencedColumnName = "userId",
-            foreignKey = @ForeignKey(foreignKeyDefinition = "fk_employeeinfo_manager", value = ConstraintMode.NO_CONSTRAINT))
+            referencedColumnName = "userId")
     private User manager;
 }

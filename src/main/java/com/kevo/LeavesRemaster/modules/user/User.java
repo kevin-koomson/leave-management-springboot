@@ -2,13 +2,15 @@ package com.kevo.LeavesRemaster.modules.user;
 
 import com.kevo.LeavesRemaster.modules.accruedLeave.AccruedLeave;
 import com.kevo.LeavesRemaster.modules.bookedLeave.BookedLeave;
-import com.kevo.LeavesRemaster.enums.Role;
+import com.kevo.LeavesRemaster.enums.Permissions;
 import com.kevo.LeavesRemaster.modules.accessLevel.AccessLevel;
 import com.kevo.LeavesRemaster.modules.employeeInfo.EmployeeInfo;
 import com.kevo.LeavesRemaster.modules.organization.Organization;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.security.Permission;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,21 +29,19 @@ public class User {
     private String firstName;
     private String lastName;
     private String fullName;
-    @Column(unique = true)
     private String email;
     private String profileImage;
     private Boolean isEmployee = true;
-    private Boolean deleted;
-    private Role role = Role.EMPLOYEE;
+    private Boolean deleted = false;
     @ManyToOne
     @JoinColumn(name = "access_level_id", referencedColumnName = "id")
     private AccessLevel accessLevel;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Organization organization;
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<EmployeeInfo> employeeInfos = Set.of();
-    @OneToMany
-    private Set<BookedLeave> bookedLeaves;
+//    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+//    private Set<EmployeeInfo> employeeInfos = Set.of();
+//    @OneToMany
+//    private Set<BookedLeave> bookedLeaves;
     @OneToOne
     private AccruedLeave accruedLeave;
 }

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,14 +29,12 @@ public class LeavePolicy {
     private UUID id;
     @NotBlank
     @Size(min = 1, max = 50)
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
     @Size(max = 300)
     private String description;
     private Double startDelay = 0.0;
-    @Column(nullable = false)
     private Double maxAccrual;
-    @Column(nullable = false)
     private Double carryOver = 5.0;
     private DayRange delayRange = DayRange.DAY;
     private DayRange accrualRate = DayRange.DAY;

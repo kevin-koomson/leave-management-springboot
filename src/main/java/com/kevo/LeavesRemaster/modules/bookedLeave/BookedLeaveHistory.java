@@ -1,5 +1,6 @@
 package com.kevo.LeavesRemaster.modules.bookedLeave;
 
+import com.kevo.LeavesRemaster.enums.HistoryAction;
 import com.kevo.LeavesRemaster.modules.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class BookedLeaveHistory {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String message;
+    private HistoryAction action;
     @ManyToOne
     private BookedLeave bookedLeave;
     @ManyToOne

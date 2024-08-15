@@ -20,6 +20,10 @@ public class JsonProcessingService {
         JsonNode dataNode = objectMapper.readTree(jsonPayload).path("data");
         return objectMapper.treeToValue(dataNode, valueType);
     }
+    public <K> K processJsonFile(String jsonPayload, Class<K> valueType, String field) throws JsonProcessingException {
+        JsonNode dataNode = objectMapper.readTree(jsonPayload).path(field);
+        return objectMapper.treeToValue(dataNode, valueType);
+    }
     public <X> Class<?> convertDateFields(X object) throws IllegalAccessException {
         Class<?> clazz = object.getClass();
         Field[] fields = clazz.getFields();

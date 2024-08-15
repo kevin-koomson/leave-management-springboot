@@ -1,5 +1,6 @@
 package com.kevo.LeavesRemaster.modules.organization;
 
+import com.kevo.LeavesRemaster.modules.bookedLeave.BookedLeave;
 import com.kevo.LeavesRemaster.modules.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,6 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,4 +27,6 @@ public class Organization {
     private String country;
     @OneToMany
     private Set<User> approverSet;
+    @OneToMany(mappedBy = "organization")
+    private List<BookedLeave> bookedLeaves;
 }

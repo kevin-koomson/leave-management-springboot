@@ -8,4 +8,5 @@ import java.util.UUID;
 @Repository
 public interface LeaveTypeRepository extends JpaRepository<LeaveType, UUID> {
 
+    public LeaveType findByAnnualDefaultIsTrue();
 }
